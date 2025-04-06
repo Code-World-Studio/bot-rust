@@ -1,9 +1,9 @@
 [package]
-name = "discord-bot"
+name = "rust_discord_bot"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-dotenv = "0.15"
+serenity = { git = "https://github.com/serenity-rs/serenity", branch = "next", features = ["client", "gateway", "framework", "standard_framework", "model"] }
 tokio = { version = "1", features = ["full"] }
-serenity = { git = "https://github.com/serenity-rs/serenity", branch = "next" }
+dotenv = "0.15"
