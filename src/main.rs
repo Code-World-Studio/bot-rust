@@ -6,6 +6,8 @@ use dotenv::dotenv;
 use serenity::prelude::*;
 use std::env;
 use tracing_subscriber;
+use serenity::http::CacheHttp;
+
 
 #[tokio::main]
 async fn main() {

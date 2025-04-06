@@ -3,10 +3,11 @@ use serenity::model::gateway::Ready;
 use serenity::model::prelude::*;
 use crate::events;
 use crate::commands;
+use serenity::http::CacheHttp;
 
 pub struct Handler;
 
-#[serenity::async_trait]
+
 impl EventHandler for Handler {
     async fn ready(&self, ctx: Context, ready: Ready) {
         events::ready::on_ready(ctx, ready).await;
