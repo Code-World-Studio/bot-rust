@@ -1,11 +1,9 @@
 [package]
-name = "bot_rust_discord"
+name = "discord-bot"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-serenity = { version = "0.11.7", features = ["client", "framework", "standard_framework", "builder", "model", "utils", "gateway", "rustls_backend"] }
-tokio = { version = "1.37", features = ["macros", "rt-multi-thread"] }
 dotenv = "0.15"
-tracing = "0.1"
-tracing-subscriber = { version = "0.3", features = ["fmt", "env-filter"] }
+tokio = { version = "1", features = ["full"] }
+serenity = { git = "https://github.com/serenity-rs/serenity", branch = "next" }
