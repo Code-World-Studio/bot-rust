@@ -1,0 +1,55 @@
+# === Rust build artifacts ===
+/target/
+**/*.rs.bk
+
+# === Cargo files ===
+/Cargo.lock
+
+# === IDEs and Editors ===
+# VSCode
+.vscode/
+/*.code-workspace
+
+# JetBrains (CLion, IntelliJ, etc.)
+.idea/
+*.iml
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Eclipse
+.project
+.metadata/
+*.tmp
+*.bak
+*.swp
+
+# === Operating system files ===
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# === Logs and environments ===
+*.log
+.env
+.env.*
+/git
+
+# === Backups ===
+*.bak
+*.tmp
+
+# === Misc ===
+/node_modules/
+*.lock
