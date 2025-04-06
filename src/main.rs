@@ -1,32 +1,26 @@
-use serenity::prelude::*;
+mod handler;
+mod commands;
+mod events;
+
 use dotenv::dotenv;
+use serenity::prelude::*;
 use std::env;
-use tracing::{info, error};
 use tracing_subscriber;
 
 #[tokio::main]
 async fn main() {
-    // Carrega variáveis do .env
     dotenv().ok();
+    tracing_subscriber::fmt().with_env_filter("info").init();
 
-    // Inicializa logs
-    tracing_subscriber::fmt()
-        .with_env_filter("info")
-        .init();
-
-    // Lê o token do arquivo .env
     let token = env::var("DISCORD_TOKEN").expect("Token não encontrado no .env");
-
-    // Exemplo básico de client
     let intents = GatewayIntents::GUILD_MESSAGES | GatewayIntents::MESSAGE_CONTENT;
 
     let mut client = Client::builder(&token, intents)
+        .event_handler(handler::Handler)
         .await
         .expect("Erro ao criar client");
 
-    if let Err(e) = client.start().await {
-        error!("Erro ao iniciar bot: {:?}", e);
-    } else {
-        info!("Bot iniciado com sucesso!");
+    if let Err(why) = client.start().await {
+        println!("Erro ao iniciar bot: {:?}", why);
     }
 }

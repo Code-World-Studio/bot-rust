@@ -2,21 +2,10 @@
 name = "bot_rust_discord"
 version = "0.1.0"
 edition = "2021"
-authors = ["Seu Nome <seu@email.com>"]
-description = "Um bot Discord leve feito em Rust com Serenity"
-license = "MIT"
-repository = "https://github.com/seuusuario/seu-bot"
 
 [dependencies]
-# Serenity: biblioteca principal do Discord (sem recursos desnecessários)
 serenity = { version = "0.11", default-features = false, features = ["client", "gateway", "rustls_backend"] }
-
-# Tokio: runtime assíncrono necessário para o Serenity
 tokio = { version = "1.37", features = ["macros", "rt-multi-thread"] }
-
-# Dotenv: carrega variáveis do .env para configurar o token de forma segura
 dotenv = "0.15"
-
-# Logs
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["fmt", "env-filter"] }
