@@ -1,49 +1,32 @@
-use serenity::{
-    async_trait,
-    model::{channel::Message, gateway::Ready},
-    prelude::*,
-};
-use std::env;
+use serenity::prelude::*;
 use dotenv::dotenv;
-
-struct Handler;
-
-#[async_trait]
-impl EventHandler for Handler {
-    async fn message(&self, ctx: Context, msg: Message) {
-        if msg.author.bot {
-            return; // Ignora mensagens de bots
-        }
-
-        match msg.content.as_str() {
-            "!ping" => {
-                let _ = msg.channel_id.say(&ctx.http, "🏓 Pong!").await;
-            }
-            "!bot" => {
-                let _ = msg.channel_id.say(&ctx.http, "🤖 Estou vivo em Rust!").await;
-            }
-            _ => {}
-        }
-    }
-
-    async fn ready(&self, _: Context, ready: Ready) {
-        println!("✅ Conectado como {}", ready.user.name);
-    }
-}
+use std::env;
+use tracing::{info, error};
+use tracing_subscriber;
 
 #[tokio::main]
 async fn main() {
+    // Carrega variáveis do .env
     dotenv().ok();
-    let token = env::var("DISCORD_TOKEN").expect("❌ Token do Discord não encontrado no .env");
 
+    // Inicializa logs
+    tracing_subscriber::fmt()
+        .with_env_filter("info")
+        .init();
+
+    // Lê o token do arquivo .env
+    let token = env::var("DISCORD_TOKEN").expect("Token não encontrado no .env");
+
+    // Exemplo básico de client
     let intents = GatewayIntents::GUILD_MESSAGES | GatewayIntents::MESSAGE_CONTENT;
 
     let mut client = Client::builder(&token, intents)
-        .event_handler(Handler)
         .await
-        .expect("❌ Erro ao criar o client");
+        .expect("Erro ao criar client");
 
-    if let Err(why) = client.start().await {
-        eprintln!("Erro ao iniciar o bot: {:?}", why);
+    if let Err(e) = client.start().await {
+        error!("Erro ao iniciar bot: {:?}", e);
+    } else {
+        info!("Bot iniciado com sucesso!");
     }
 }

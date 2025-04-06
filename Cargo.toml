@@ -17,6 +17,6 @@ tokio = { version = "1.37", features = ["macros", "rt-multi-thread"] }
 # Dotenv: carrega variáveis do .env para configurar o token de forma segura
 dotenv = "0.15"
 
-# Opcional: logs para debug mais fácil (recomendo)
+# Logs
 tracing = "0.1"
-tracing-subscriber = { version = "0.3", features = ["fmt"] }
+tracing-subscriber = { version = "0.3", features = ["fmt", "env-filter"] }
